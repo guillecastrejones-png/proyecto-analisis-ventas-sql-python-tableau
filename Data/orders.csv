@@ -1,0 +1,6 @@
+order_id,customer_id,order_date,channel
+1,1,2024-01-03,Online
+2,2,2024-01-10,Tienda
+3,3,2024-01-10,Online
+4,1,2024-01-22,Tienda
+5,4,2024-02-01,Online

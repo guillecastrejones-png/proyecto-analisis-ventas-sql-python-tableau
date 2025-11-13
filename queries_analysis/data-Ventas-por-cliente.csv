@@ -1,0 +1,6 @@
+"customer_id","customer_name","city","num_orders","avg_item_total","revenue"
+5,"Luis Torres","Madrid","0",NULL,NULL
+3,"María Gómez","Valencia","1","1080.00","1080.00"
+1,"Carlos López","Madrid","2","1730.00","576.67"
+4,"Jorge Martín","Barcelona","1","400.00","400.00"
+2,"Ana Ruiz","Sevilla","1","100.00","100.00"

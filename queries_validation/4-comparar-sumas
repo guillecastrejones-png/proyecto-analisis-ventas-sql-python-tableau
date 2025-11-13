@@ -1,0 +1,4 @@
+SELECT 
+  SUM(total) AS sum_total_col,
+  SUM(qty * unit_price) AS sum_calc
+FROM order_items;

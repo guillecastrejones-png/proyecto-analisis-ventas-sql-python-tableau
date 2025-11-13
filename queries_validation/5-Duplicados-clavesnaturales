@@ -1,0 +1,1 @@
+SELECT item_id, COUNT(*) FROM order_items GROUP BY item_id HAVING COUNT(*) > 1;

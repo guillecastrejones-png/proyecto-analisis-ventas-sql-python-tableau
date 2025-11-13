@@ -1,0 +1,7 @@
+"column_name","data_type","is_nullable"
+"item_id","integer","NO"
+"order_id","integer","YES"
+"product_id","integer","YES"
+"qty","integer","YES"
+"unit_price","numeric","YES"
+"total","numeric","YES"

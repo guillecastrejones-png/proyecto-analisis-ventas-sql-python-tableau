@@ -1,0 +1,11 @@
+SELECT 'customers' AS tabla, COUNT(*) FROM customers
+UNION ALL
+SELECT 'products', COUNT(*) FROM products
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;
+
+SELECT item_id, qty, unit_price, total, (qty * unit_price) AS calc_total
+FROM order_items
+WHERE total <> (qty * unit_price);

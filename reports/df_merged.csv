@@ -1,0 +1,7 @@
+item_id,order_id,product_id,qty,unit_price,customer_id,order_date,channel,customer_name,city,product_name,category,total
+1,1,1,1,1200,1,2024-01-03,Online,Carlos López,Madrid,Portátil Pro 15,Electrónica,1200
+2,1,2,1,80,1,2024-01-03,Online,Carlos López,Madrid,Teclado Mecánico,Accesorios,80
+3,2,3,2,50,2,2024-01-10,Tienda,Ana Ruiz,Sevilla,Auriculares Inalámbricos,Accesorios,100
+4,3,4,6,180,3,2024-01-10,Online,María Gómez,Valencia,Monitor 24 pulgadas,Electrónica,1080
+5,4,5,3,150,1,2024-01-22,Tienda,Carlos López,Madrid,Silla Ergonómica,Mobiliario,450
+6,5,2,5,80,4,2024-02-01,Online,Jorge Martín,Barcelona,Teclado Mecánico,Accesorios,400

@@ -1,0 +1,997 @@
+2025-11-07 11:12:27,256 INFO RUN ALL: inicio
+2025-11-07 11:12:27,256 INFO LOAD_METHOD=copy
+2025-11-07 11:12:27,256 INFO Cargando CSVs con COPY (psycopg2) ...
+2025-11-07 11:23:43,396 INFO RUN ALL: inicio
+2025-11-07 11:23:43,397 INFO LOAD_METHOD=copy
+2025-11-07 11:23:43,397 INFO Cargando CSVs con COPY (psycopg2) ...
+2025-11-07 11:23:43,473 INFO  -> customers.csv -> tabla: customers
+2025-11-07 11:23:43,615 ERROR   ERROR en COPY para customers: duplicate key value violates unique constraint "customers_pkey"
+DETAIL:  Key (customer_id)=(1) already exists.
+CONTEXT:  COPY customers, line 2
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 98, in load_with_copy
+    cur.copy_expert(sql.SQL("COPY {} FROM STDIN WITH CSV HEADER").format(sql.Identifier(table_name)), f)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "customers_pkey"
+DETAIL:  Key (customer_id)=(1) already exists.
+CONTEXT:  COPY customers, line 2
+
+2025-11-07 11:23:43,618 INFO  -> order_items.csv -> tabla: order_items
+2025-11-07 11:23:43,704 ERROR   ERROR en COPY para order_items: duplicate key value violates unique constraint "order_items_pkey"
+DETAIL:  Key (item_id)=(1) already exists.
+CONTEXT:  COPY order_items, line 2
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 98, in load_with_copy
+    cur.copy_expert(sql.SQL("COPY {} FROM STDIN WITH CSV HEADER").format(sql.Identifier(table_name)), f)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "order_items_pkey"
+DETAIL:  Key (item_id)=(1) already exists.
+CONTEXT:  COPY order_items, line 2
+
+2025-11-07 11:23:43,710 INFO  -> orders.csv -> tabla: orders
+2025-11-07 11:23:43,758 ERROR   ERROR en COPY para orders: duplicate key value violates unique constraint "orders_pkey"
+DETAIL:  Key (order_id)=(1) already exists.
+CONTEXT:  COPY orders, line 2
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 98, in load_with_copy
+    cur.copy_expert(sql.SQL("COPY {} FROM STDIN WITH CSV HEADER").format(sql.Identifier(table_name)), f)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "orders_pkey"
+DETAIL:  Key (order_id)=(1) already exists.
+CONTEXT:  COPY orders, line 2
+
+2025-11-07 11:23:43,759 INFO  -> products.csv -> tabla: products
+2025-11-07 11:23:43,808 ERROR   ERROR en COPY para products: duplicate key value violates unique constraint "products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+CONTEXT:  COPY products, line 2
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 98, in load_with_copy
+    cur.copy_expert(sql.SQL("COPY {} FROM STDIN WITH CSV HEADER").format(sql.Identifier(table_name)), f)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+CONTEXT:  COPY products, line 2
+
+2025-11-07 11:23:43,809 INFO Carga con COPY finalizada.
+2025-11-07 11:23:43,830 INFO Ejecutando 2 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-07 11:23:43,830 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-07 11:23:44,112 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.SyntaxError) syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+[SQL: "sum_total_col","sum_calc"
+"3310.00","3310.00"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.SyntaxError: syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.SyntaxError) syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+[SQL: "sum_total_col","sum_calc"
+"3310.00","3310.00"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-07 11:23:44,125 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-07 11:23:44,128 ERROR     ERROR ejecutando resultado-count-tables.sql: (psycopg2.errors.SyntaxError) syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+[SQL: SELECT 'customers' AS tabla, COUNT(*) FROM customers
+UNION ALL
+SELECT 'products', COUNT(*) FROM products
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;
+
+
+"tabla","count"
+"customers","5"
+"products","5"
+"orders","5"
+"order_items","6"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.SyntaxError: syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.SyntaxError) syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+[SQL: SELECT 'customers' AS tabla, COUNT(*) FROM customers
+UNION ALL
+SELECT 'products', COUNT(*) FROM products
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;
+
+
+"tabla","count"
+"customers","5"
+"products","5"
+"orders","5"
+"order_items","6"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-07 11:23:44,133 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-07 11:23:44,133 INFO Generando summary_analysis.xlsx ...
+2025-11-07 11:23:44,296 INFO Excel generado.
+2025-11-07 11:23:44,296 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log
+2025-11-07 11:29:04,519 INFO RUN ALL: inicio
+2025-11-07 11:29:04,520 INFO LOAD_METHOD=pandas
+2025-11-07 11:29:04,520 INFO Cargando CSVs con pandas.to_sql (if_exists='replace') ...
+2025-11-07 11:29:04,520 INFO  -> customers.csv -> tabla: customers
+2025-11-07 11:32:22,340 INFO RUN ALL: inicio
+2025-11-07 11:32:22,340 INFO LOAD_METHOD=pandas
+2025-11-07 11:32:22,340 INFO Cargando CSVs con pandas.to_sql (if_exists='replace') ...
+2025-11-07 11:32:22,341 INFO  -> customers.csv -> tabla: customers
+2025-11-07 11:32:22,450 INFO  -> order_items.csv -> tabla: order_items
+2025-11-07 11:32:22,465 INFO  -> orders.csv -> tabla: orders
+2025-11-07 11:32:22,476 INFO  -> products.csv -> tabla: products
+2025-11-07 11:32:22,487 INFO Carga con pandas finalizada.
+2025-11-07 11:32:22,487 INFO Ejecutando 2 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-07 11:32:22,487 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-07 11:32:22,533 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.SyntaxError) syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+[SQL: "sum_total_col","sum_calc"
+"3310.00","3310.00"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.SyntaxError: syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.SyntaxError) syntax error at or near ""sum_total_col""
+LINE 1: "sum_total_col","sum_calc"
+        ^
+
+[SQL: "sum_total_col","sum_calc"
+"3310.00","3310.00"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-07 11:32:22,540 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-07 11:32:22,542 ERROR     ERROR ejecutando resultado-count-tables.sql: (psycopg2.errors.SyntaxError) syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+[SQL: SELECT 'customers' AS tabla, COUNT(*) FROM customers
+UNION ALL
+SELECT 'products', COUNT(*) FROM products
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;
+
+
+"tabla","count"
+"customers","5"
+"products","5"
+"orders","5"
+"order_items","6"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.SyntaxError: syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.SyntaxError) syntax error at or near ""tabla""
+LINE 10: "tabla","count"
+         ^
+
+[SQL: SELECT 'customers' AS tabla, COUNT(*) FROM customers
+UNION ALL
+SELECT 'products', COUNT(*) FROM products
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;
+
+
+"tabla","count"
+"customers","5"
+"products","5"
+"orders","5"
+"order_items","6"
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-07 11:32:22,545 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-07 11:32:22,546 INFO Generando summary_analysis.xlsx ...
+2025-11-07 11:32:22,700 INFO Excel generado.
+2025-11-07 11:32:22,700 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log
+2025-11-07 11:34:38,642 INFO RUN ALL: inicio
+2025-11-07 11:34:38,642 INFO LOAD_METHOD=pandas
+2025-11-07 11:34:38,642 INFO Cargando CSVs con pandas.to_sql (if_exists='replace') ...
+2025-11-07 11:34:38,643 INFO  -> customers.csv -> tabla: customers
+2025-11-07 11:34:38,789 INFO  -> order_items.csv -> tabla: order_items
+2025-11-07 11:34:38,870 INFO  -> orders.csv -> tabla: orders
+2025-11-07 11:34:38,943 INFO  -> products.csv -> tabla: products
+2025-11-07 11:34:39,060 INFO Carga con pandas finalizada.
+2025-11-07 11:34:39,061 INFO Ejecutando 2 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-07 11:34:39,061 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-07 11:34:39,063 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-07 11:34:39,077 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-07 11:34:39,136 INFO     Exportado: val_resultado-count-tables.csv (4 filas)
+2025-11-07 11:34:39,137 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-07 11:34:39,137 INFO Generando summary_analysis.xlsx ...
+2025-11-07 11:34:39,309 INFO Excel generado.
+2025-11-07 11:34:39,309 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log
+2025-11-10 17:58:39,567 INFO RUN ALL: inicio
+2025-11-10 17:58:39,568 INFO LOAD_METHOD=copy
+2025-11-10 17:58:39,569 INFO Cargando CSVs con COPY (psycopg2) ...
+2025-11-10 17:58:39,638 INFO  -> customers.csv -> tabla: customers
+2025-11-10 17:58:39,786 INFO   COPY OK -> customers
+2025-11-10 17:58:39,787 INFO  -> order_items.csv -> tabla: order_items
+2025-11-10 17:58:39,827 INFO   COPY OK -> order_items
+2025-11-10 17:58:39,828 INFO  -> orders.csv -> tabla: orders
+2025-11-10 17:58:39,869 INFO   COPY OK -> orders
+2025-11-10 17:58:39,869 INFO  -> products.csv -> tabla: products
+2025-11-10 17:58:39,915 INFO   COPY OK -> products
+2025-11-10 17:58:39,915 INFO Carga con COPY finalizada.
+2025-11-10 17:58:39,918 INFO Ejecutando 2 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-10 17:58:39,918 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-10 17:58:40,121 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-10 17:58:40,135 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-10 17:58:40,195 INFO     Exportado: val_resultado-count-tables.csv (4 filas)
+2025-11-10 17:58:40,197 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-10 17:58:40,197 INFO Generando summary_analysis.xlsx ...
+2025-11-10 17:58:40,197 ERROR Error generando Excel: No module named 'xlsxwriter'
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 131, in make_excel_summary
+    with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
+         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/excel/_xlsxwriter.py", line 197, in __init__
+    from xlsxwriter import Workbook
+ModuleNotFoundError: No module named 'xlsxwriter'
+2025-11-10 17:58:40,200 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log
+2025-11-10 18:01:39,062 INFO RUN ALL: inicio
+2025-11-10 18:01:39,063 INFO LOAD_METHOD=copy
+2025-11-10 18:01:39,063 INFO Cargando CSVs con COPY (psycopg2) ...
+2025-11-10 18:01:39,130 INFO  -> customers.csv -> tabla: customers
+2025-11-10 18:01:39,181 INFO   COPY OK -> customers
+2025-11-10 18:01:39,182 INFO  -> order_items.csv -> tabla: order_items
+2025-11-10 18:01:39,225 INFO   COPY OK -> order_items
+2025-11-10 18:01:39,226 INFO  -> orders.csv -> tabla: orders
+2025-11-10 18:01:39,267 INFO   COPY OK -> orders
+2025-11-10 18:01:39,267 INFO  -> products.csv -> tabla: products
+2025-11-10 18:01:39,312 INFO   COPY OK -> products
+2025-11-10 18:01:39,313 INFO Carga con COPY finalizada.
+2025-11-10 18:01:39,314 INFO Ejecutando 3 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-10 18:01:39,314 INFO  -> Ejecutando 02_compare_sum_order_items.sql
+2025-11-10 18:01:39,356 ERROR     ERROR ejecutando 02_compare_sum_order_items.sql: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 4:   SUM(total)::numeric(18,2) AS sum_total_col,
+              ^
+
+[SQL: -- 02_compare_sum_order_items.sql
+-- Comparar suma total almacenada en order_items.total vs suma calculada (qty * unit_price)
+SELECT
+  SUM(total)::numeric(18,2) AS sum_total_col,
+  SUM(qty * unit_price)::numeric(18,2) AS sum_calc,
+  (SUM(total) - SUM(qty * unit_price))::numeric(18,2) AS diff
+FROM order_items;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column "total" does not exist
+LINE 4:   SUM(total)::numeric(18,2) AS sum_total_col,
+              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 4:   SUM(total)::numeric(18,2) AS sum_total_col,
+              ^
+
+[SQL: -- 02_compare_sum_order_items.sql
+-- Comparar suma total almacenada en order_items.total vs suma calculada (qty * unit_price)
+SELECT
+  SUM(total)::numeric(18,2) AS sum_total_col,
+  SUM(qty * unit_price)::numeric(18,2) AS sum_calc,
+  (SUM(total) - SUM(qty * unit_price))::numeric(18,2) AS diff
+FROM order_items;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-10 18:01:39,367 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-10 18:01:39,370 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-10 18:01:39,373 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-10 18:01:39,381 INFO     Exportado: val_resultado-count-tables.csv (4 filas)
+2025-11-10 18:01:39,382 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-10 18:01:39,383 INFO Generando summary_analysis.xlsx ...
+2025-11-10 18:01:39,531 INFO Excel generado.
+2025-11-10 18:01:39,531 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log
+2025-11-10 18:23:49,628 INFO RUN ALL: inicio
+2025-11-10 18:23:49,629 INFO LOAD_METHOD=copy
+2025-11-10 18:23:49,630 INFO Cargando CSVs con COPY (psycopg2) ...
+2025-11-10 18:23:49,704 INFO  -> customers.csv -> tabla: customers
+2025-11-10 18:23:49,751 INFO   COPY OK -> customers
+2025-11-10 18:23:49,752 INFO  -> order_items.csv -> tabla: order_items
+2025-11-10 18:23:49,797 INFO   COPY OK -> order_items
+2025-11-10 18:23:49,798 INFO  -> orders.csv -> tabla: orders
+2025-11-10 18:23:49,841 INFO   COPY OK -> orders
+2025-11-10 18:23:49,842 INFO  -> products.csv -> tabla: products
+2025-11-10 18:23:49,881 INFO   COPY OK -> products
+2025-11-10 18:23:49,881 INFO Carga con COPY finalizada.
+2025-11-10 18:23:49,884 INFO Ejecutando 3 queries en /Users/guille/Desktop/proyecto_sql/queries_validation
+2025-11-10 18:23:49,884 INFO  -> Ejecutando 02_compare_sum_order_items.sql
+2025-11-10 18:23:49,994 INFO     Exportado: val_02_compare_sum_order_items.csv (1 filas)
+2025-11-10 18:23:49,994 INFO  -> Ejecutando resultado-comparar-sumas.sql
+2025-11-10 18:23:50,059 ERROR     ERROR ejecutando resultado-comparar-sumas.sql: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/guille/Desktop/proyecto_sql/run_all.py", line 118, in run_queries_and_export
+    df = pd.read_sql_query(sql_text, engine)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype_backend=dtype_backend,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/guille/Desktop/proyecto_sql/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "total" does not exist
+LINE 3:   (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_tota...
+                      ^
+
+[SQL: /* VALIDATION: Comparar suma total almacenada en orders vs suma calculada desde order_items */
+SELECT
+  (SELECT SUM(total) FROM orders)::numeric(18,2) AS sum_total_col,
+  (SELECT SUM(qty * unit_price) FROM order_items)::numeric(18,2) AS sum_calc;
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-10 18:23:50,072 INFO  -> Ejecutando resultado-count-tables.sql
+2025-11-10 18:23:50,079 INFO     Exportado: val_resultado-count-tables.csv (4 filas)
+2025-11-10 18:23:50,080 INFO Ejecutando 0 queries en /Users/guille/Desktop/proyecto_sql/queries_analysis
+2025-11-10 18:23:50,080 INFO Generando summary_analysis.xlsx ...
+2025-11-10 18:23:50,226 INFO Excel generado.
+2025-11-10 18:23:50,226 INFO RUN ALL: FINISHED. Revisa carpeta outputs/ y run_logs/run_all.log

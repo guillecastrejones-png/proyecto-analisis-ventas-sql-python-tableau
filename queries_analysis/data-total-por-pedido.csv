@@ -1,0 +1,6 @@
+"order_id","customer_id","customer_name","order_date","channel","order_total","total_items"
+1,1,"Carlos López","2024-01-03","Online","1280.00","2"
+3,3,"María Gómez","2024-01-10","Online","1080.00","6"
+4,1,"Carlos López","2024-01-22","Tienda","450.00","3"
+5,4,"Jorge Martín","2024-02-01","Online","400.00","5"
+2,2,"Ana Ruiz","2024-01-10","Tienda","100.00","2"
