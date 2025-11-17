@@ -1,30 +1,152 @@
-# Proyecto de Análisis de Ventas — SQL · Python · Jupyter · Tableau
+#  Proyecto de Análisis de Ventas — SQL · Python · Jupyter · Tableau
 
-**Autor:** Guillermo Castrejón
+**Autor:** Guillermo Castrejón**
+**Rol:** Analista de Datos Junior / Administrador de Bases de Datos Junior**
 
-## Descripción
-Este proyecto es un análisis completo del ciclo de vida del dato, desde la creación y validación de una base de datos relacional en PostgreSQL hasta la construcción de un pipeline ETL en Python y la visualización final en Tableau.
+---
 
-Su objetivo es demostrar mis habilidades como Data Analyst Junior, trabajando con datos de forma ordenada, reproducible y orientada a negocio.
-Breve: qué hace el proyecto (ETL, validaciones, análisis, dashboard).
+##  Descripción del Proyecto
 
-## Estructura del repo
-- data/
-- queries_validation/
-- queries_analysis/
-- notebooks/
-- reports/ (no incluir en historial final)
-- run_all.py
-- README.md
+Este proyecto cubre **todo el ciclo de vida del dato**, desde su modelado en SQL hasta la creación de un dashboard interactivo en Tableau.
 
-## Cómo reproducir
-1. Crear entorno virtual
-2. Instalar dependencias: `pip install -r requirements.txt`
-3. Ejecutar: `python run_all.py`
+Incluye:
 
-## Resultados / Dashboard
-- Link a Tableau Public
-- Capturas (images/)
+* Modelado y creación de una base de datos relacional
+* Carga de datos desde CSV
+* Validaciones de integridad
+* Pipeline ETL reproducible con Python
+* Cálculo de KPIs
+* Análisis exploratorio en Jupyter Notebook
+* Dashboard interactivo en Tableau Public
 
-## Contribuciones / Licencia
-- MIT
+El objetivo es demostrar mi capacidad para trabajar como **Data Analyst Junior**, elaborando proyectos completos, ordenados y orientados a negocio.
+
+---
+
+##  Estructura del Proyecto
+
+
+proyecto-analisis-ventas-sql-python-tableau/
+│
+├── data/                     # Datos originales (CSV)
+├── queries_validation/       # Validaciones SQL
+├── queries_analysis/         # Consultas analíticas SQL
+├── notebooks/                # EDA con Jupyter Notebook
+├── outputs/                  # Resultados generados por el pipeline
+├── run_logs/                 # Registros de ejecución del ETL
+├── run_all.py                # Script ETL principal
+└── README.md                 # Documentación
+
+---
+
+##  Modelo Relacional
+
+Tablas:
+
+* **customers** → información del cliente
+* **orders** → pedidos
+* **products** → productos y categorías
+* **order_items** → detalle del pedido + columna calculada `total`
+
+Relaciones:
+
+customers 1 ── n orders
+orders    1 ── n order_items
+products  1 ── n order_items
+
+
+---
+
+##  Tecnologías Utilizadas
+
+* **PostgreSQL / SQL** — creación del esquema, validaciones, consultas
+* **Python (Pandas)** — ETL, merges, KPIs, reportería
+* **Jupyter Notebook** — análisis exploratorio
+* **Tableau Public** — visualización interactiva
+* **Git & GitHub** — versionado y documentación
+
+---
+
+##  KPIs y Análisis Realizado
+
+* Ventas totales
+* Ventas por ciudad
+* Ventas por categoría
+* Ventas por mes
+* Ranking de productos
+* Top clientes
+* Ticket medio
+* Comparativa por canal (online vs tienda)
+
+---
+
+## Pipeline ETL (Python)
+
+El script **`run_all.py`** realiza:
+
+1. Carga de CSV desde `/data/`
+2. Validación de estructura
+3. Inserción en PostgreSQL
+4. Cálculo de totales y KPIs
+5. Exportación de resultados a `/outputs/`
+6. Generación de logs en `/run_logs/`
+
+---
+
+## ▶ Cómo reproducir el proyecto
+
+### 1. Crear entorno virtual
+
+bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 2. Instalar dependencias
+
+bash
+pip install -r requirements.txt
+
+
+### 3. Ejecutar el ETL
+
+bash
+python run_all.py
+
+
+Los resultados aparecerán en:
+/outputs`
+/run_logs`
+
+---
+
+##  Dashboard en Tableau
+
+**Dashboard publicado en Tableau Public:**
+*(Añade aquí tu enlace exacto de Tableau)*
+
+Incluye visualizaciones de:
+
+* Ventas por ciudad
+* Ventas por categoría
+* Top productos
+* Evolución mensual
+* KPI principal de ventas
+
+---
+
+##  Sobre el autor
+
+Soy **Guillermo Castrejón**, Analista de Datos Junior en formación y desarrollo continuo.
+Actualmente estoy construyendo un portfolio orientado a SQL, Python y visualización con Tableau, buscando una oportunidad para aprender y crecer en el sector.
+
+---
+
+##  Contacto
+
+Email: **[guille.castrejon.es@gmail.com](mailto:guille.castrejon.es@gmail.com)**
+LinkedIn: *(tu enlace aquí)*
+
+---
+
+
